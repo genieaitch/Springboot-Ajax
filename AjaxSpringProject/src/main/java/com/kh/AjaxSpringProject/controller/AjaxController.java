@@ -7,6 +7,7 @@ import com.kh.AjaxSpringProject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -40,11 +41,13 @@ public class AjaxController {
         return users;
     }
 
-    @GetMapping("/api/${id}")
-    public List<User> getUserById(){
-        List<User> users = userService.getAllUsers();
-        log.info(users.toString());
-        return users;
+    //id = 유동적으로 사용자가 선택하는 id 값으로 변경
+    // jQuery {} 를 사용해 변수이름이나 특정 값을 가져옴
+    // controller는 {} 만 사용해도 가능
+    // @PathVariable("id") int id @GetMapping 에서 {id} 값을 바라봄
+    @GetMapping("/api/user/{id}")
+    public User getUserById(@PathVariable("id") int id){
+        return userService.getUserById(id);
     }
 
     @GetMapping("/api/hello")
