@@ -25,10 +25,4 @@ public class IndexController {
         model.addAttribute("user", userService.getUserById(id));
         return "userInfo";
     }
-
-
-    @GetMapping("/api/cafe")
-    public String cafe() {
-        return "cafe";
-    }
 }
