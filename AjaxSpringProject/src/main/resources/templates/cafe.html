@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cafe page</title>
-    <link rel="icon" href="favicon.ico">
+    <title>카페 목록</title>
+    <link rel="icon" href="/favicon.ico">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<h1>카페 정보 조회</h1>
+<h1>카페 목록</h1>
 <div class="cafe-container" id="cafeContainer">
-<p>데이터 불러오는 중...</p></div>
+</div>
 
 <script>
     $.ajax({
         url:'/api/cafes',
         method: 'GET',
         success:
-        function (data){
-            if (data.length > 0){
-                $.each(data,
+        function (cafeData){
+            if (cafeData.length > 0){
+                $.each(cafeData,
                 function (index, cafe){
                     const cafeInfo = `
-                    <p><strong> CafeName : </strong>${cafe.name}</p>
-                    <p><strong> Address : </strong>${cafe.address}</p>
-                    <p><strong> PhoneNumber : </strong>${cafe.phoneNumber}</p>
-                    <p><strong> OpeningTime : </strong>${cafe.openingTime}</p>
-                    <p><strong> ClosingTime : </strong>${cafe.closingTime}</p>
-                    <p><strong> Description : </strong>${cafe.description}</p>
+                    <p><strong> 카페이름 : </strong>${cafe.name}</p>
+                    <p><strong> 카페주소 : </strong>${cafe.address}</p>
+                    <p><strong> 카페번호 : </strong>${cafe.phoneNumber}</p>
+                    <p><strong> 오픈시간 : </strong>${cafe.openingTime}</p>
+                    <p><strong> 종료시간 : </strong>${cafe.closingTime}</p>
+                    <p><strong> 카페설명 : </strong>${cafe.description}</p>
                     `
+                    console.log("카페 목록 가져오기 성공 : " + cafeData);
                 $('#cafeContainer').append(cafeInfo);
                 })
             } else {
-                alert("오류 발생")
+                console.log(error);
+                $('#cafeContainer').html(`<p>서버에 문제가 생겨 표기할 수 없습니다.</p>`)
             }
         },
         error(){

@@ -66,15 +66,4 @@ public class AjaxController {
         map.put("status","200");
         return map;
     }
-
-
-    @Autowired
-    private CafeService cafeService;
-
-    @GetMapping("/api/cafes")
-    public List<Cafe> getAllCafes() {
-        List<Cafe> cafes = cafeService.getAllCafes();
-        log.info(cafes.toString());
-        return cafes;
-    }
 }

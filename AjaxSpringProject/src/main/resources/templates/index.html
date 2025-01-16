@@ -26,29 +26,29 @@
     *  -> 0
     * */
     $.ajax({
-        url: '/api/users',
-        method: 'get',
+        url:'/api/users',
+        method:'get',
         success:
             function (data) {
-                let html;
-                if (data.length > 0) { //DB에서 컨트롤러로 전달받은 데이터가 1개 이상이라면
+                let userInfo;
+                if(data.length > 0) { //DB에서 컨트롤러로 전달받은 데이터가 1개 이상이라면
                     $.each(data,
                         function (index, user) {
                             userInfo += `
-                                <p><a href="/detail/${user.id}"> ID : </a>${user.id}</p>
-                                <p><strong> Nickname : </strong>${user.nickname}</p>
-                                <p><strong> Name : </strong>${user.username}</p>
-                                <p><strong> Email : </strong>${user.email}</p>
+                                        <p><a href="/detail?id=${user.id}"> ID : </a>${user.id}</p>
+                                        <p><strong> Nickname : </strong>${user.nickname}</p>
+                                        <p><strong> Name : </strong>${user.username}</p>
+                                        <p><strong> Email : </strong>${user.email}</p>
                                                             `;
                         }
                     )
-                            $("#mainContainer").html(userInfo);
+                    $("#mainContainer").html(userInfo);
                 } else {        //DB에서 컨트롤러로 전달받은 데이터가 하나도 없으면
                     $("#mainContainer").html("<p>정보가 조회되지 않습니다.</p>");
                 }
             },
-        error:
-            function () {
+        error :
+            function (){
                 alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
             }
     })
