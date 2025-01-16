@@ -35,6 +35,8 @@ public class DBConfig {
     @Bean
     public DataSource dataSource(HikariConfig config) {
 
+        //지역 변수 'dataSource'이(가) 중복됩니다.
+        // → dto ~ controller 까지 데이터 중복되거나 문제 있을 때 발생하는 에러
         DataSource dataSource = new HikariDataSource(config);
         return dataSource;
     }

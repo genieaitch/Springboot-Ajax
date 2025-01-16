@@ -25,4 +25,24 @@ public class IndexController {
         model.addAttribute("user", userService.getUserById(id));
         return "userInfo";
     }
+
+    @GetMapping("/get/avatar")
+    public String getAvatar() {
+        return "jQueryAjax/Avatar";
+    }
+
+    @GetMapping("/get/randomLogo")
+    public String getRandomLogo() {
+        return "jQueryAjax/randomLogo";
+    }
+
+    @GetMapping("/get/product")
+    public String getProduct() {
+        return "jQueryAjax/product";
+    }
+
+    @GetMapping("/get/kakaoLogin")
+    public String getKakaoLogin() {
+        return "jQueryAjax/kakaoLogin";
+    }
 }
