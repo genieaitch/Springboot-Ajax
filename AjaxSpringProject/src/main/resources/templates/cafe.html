@@ -14,33 +14,54 @@
 
 <script>
     $.ajax({
-        url:'/api/cafes',
+        url: '/api/cafes',
         method: 'GET',
         success:
-        function (cafeData){
-            if (cafeData.length > 0){
-                $.each(cafeData,
-                function (index, cafe){
-                    const cafeInfo = `
-                    <p><strong> 카페이름 : </strong>${cafe.name}</p>
-                    <p><strong> 카페주소 : </strong>${cafe.address}</p>
-                    <p><strong> 카페번호 : </strong>${cafe.phoneNumber}</p>
-                    <p><strong> 오픈시간 : </strong>${cafe.openingTime}</p>
-                    <p><strong> 종료시간 : </strong>${cafe.closingTime}</p>
-                    <p><strong> 카페설명 : </strong>${cafe.description}</p>
+            function (cafeData) {
+                if (cafeData.length > 0) {
+                    $.each(cafeData,
+                        function (index, cafe) {
+                            const cafeInfo = `
+                    <p><strong> 카페이름 : </strong>${cafe.name} <a href="javascript:void(0)" onclick="getCafeInfo(${cafe.id})">[이동]</a></p>
                     `
-                    console.log("카페 목록 가져오기 성공 : " + cafeData);
-                $('#cafeContainer').append(cafeInfo);
-                })
-            } else {
-                console.log(error);
-                $('#cafeContainer').html(`<p>서버에 문제가 생겨 표기할 수 없습니다.</p>`)
-            }
-        },
-        error(){
-            alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.")
+                            console.log("카페 목록 가져오기 성공 : " + cafeData);
+                            $('#cafeContainer').append(cafeInfo);
+                        })
+                } else {
+                    $('#cafeContainer').html(`<p>데이터가 없습니다.</p>`);
+                }
+            },
+        error: function (xhr, status, error) {
+            console.error("에러 발생: ", error);
+            $('#cafeContainer').html(`<p>서버에 문제가 생겼습니다.</p>`);
         }
     })
+
+    function getCafeInfo(id) {
+        $.ajax({
+            url: `/api/cafe/${id}`,
+            method: 'GET',
+            success:
+            function (cafeDetail){
+                const detailInfo = `
+                            <div class="cafe-detail">
+                            <h2>카페 상세 정보</h2>
+                            <p><strong> 카페이름 : </strong>${cafeDetail.name}</p>
+                            <p><strong> 카페주소 : </strong>${cafeDetail.address}</p>
+                            <p><strong> 카페번호 : </strong>${cafeDetail.phoneNumber}</p>
+                            <p><strong> 오픈시간 : </strong>${cafeDetail.openingTime}</p>
+                            <p><strong> 종료시간 : </strong>${cafeDetail.closingTime}</p>
+                            <p><strong> 카페설명 : </strong>${cafeDetail.description}</p>
+                            </div>
+                `;
+                $('#cafeContainer').html(detailInfo);
+            },
+            error:
+            function (){
+                $('#cafeContainer').html('<p>상세 정보를 가져오는 데 실패했습니다.</p>')
+            }
+        });
+    }
 </script>
 </body>
 </html>
