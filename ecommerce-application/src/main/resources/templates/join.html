@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>회원가입</h1>
+<form id="joinForm" class="join-form">
+    <label for="email">이메일 : </label>
+    <input type="email" name="email" id="email">
+    <button type="submit" id="existEmail">이메일 중복확인</button>
+
+    <label for="username">아이디 : </label>
+    <input type="text" name="username" id="username">
+
+    <label for="password">비밀번호 : </label>
+    <input type="password" name="password" id="password">
+
+    <label for="firstname">퍼스트네임(이름) : </label>
+    <input type="text" name="firstname" id="firstname">
+
+    <label for="lastname">라스트네임(성) : </label>
+    <input type="text" name="lastname" id="lastname">
+
+    <label for="phone">전화번호 : </label>
+    <input type="text" name="phone" id="phone">
+
+    <label for="city">도시 : </label>
+    <input type="text" name="city" id="city">
+
+    <label for="street">도로 : </label>
+    <input type="text" name="street" id="street">
+
+    <label for="streetNumber">도로번호 : </label>
+    <input type="text" name="streetNumber" id="streetNumber">
+
+    <label for="zipcode">우편번호 : </label>
+    <input type="text" name="zipcode" id="zipcode">
+
+    <button type="submit">회원가입</button>
+</form>
+<script>
+    // 이메일 중복체크 여부 저장
+    let emailChecked = false;
+    $("email").on("input", function(){
+        emailChecked = false; //이메일 변경 시 중복 체크 상태 초기화
+    })
+
+    //이메일 중복확인
+    $('#existEmail').submit(function (event) {
+        event.preventDefault();
+
+        const email = $("#email").val();
+
+        if (!email) {
+            alert("이메일을 입력하세요.");
+            return
+        }
+        $.ajax({
+            url: "/api/existEmail",
+            method: "GET",
+            success: function (data) {
+                if (data) {
+                    alert("이미 사용 중인 이메일입니다.");
+                    return;
+                } else {
+                    alert("사용 가능한 이메일입니다.");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert("이메일 중복 확인 오류가 발생했습니다.");
+            },
+        });
+    });
+
+    $("#joinForm").submit(function (event) {
+        event.preventDefault();
+
+        const requiredFields = ['#email', '#username', '#password', '#firstname', '#lastname', '#phone', '#city', '#street', '#streetNumber', '#zipcode'];
+        for (const field of requiredFields) {
+            if (!$(field).val()) {
+                alert('모든 필수 정보를 입력해주세요.');
+                return;
+            }
+        }
+            $.ajax({
+                url: "/api/join",
+                method: "POST",
+                contentType: "application/json", //db에 글자 형식만 전송하곘다.
+                // POST의 경우 contentType 과 data 가 추가됨
+                // contentType : 글자형식먄 DB에 전송해서 저장할 것인지 미디어, 파일 등을 포함해서 전달할 것인지
+                // data : DTO 작성된 필드이름 : input id명칭에 해당하는 값(value())을 가져와서 전달
+                //        전달된 이름이 필드속성이름과 일치하다면 mapper에서 DB로 insert
+                data: JSON.stringify({
+                    email: $("#email").val(),
+                    username: $("#username").val(),
+                    password: $("#password").val(),
+                    firstname: $("#firstname").val(),
+                    lastname: $("#lastname").val(),
+                    phone: $("#phone").val(),
+                    city: $("#city").val(),
+                    street: $("#street").val(),
+                    streetNumber: $("#streetNumber").val(),
+                    zipcode: $("#zipcode").val()
+                }),
+                success: function () { // success에서 회원가입을 완료한 후 전달할게 없다면 data 작성 x
+                    alert("회원가입이 완료되었습니다.");
+                    window.location.href = "/"; //회원가입이 완료된 후 이동할 페이지 설정
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("회원가입을 할 수 없습니다.");
+                }
+            })
+        })
+</script>
+</body>
+</html>

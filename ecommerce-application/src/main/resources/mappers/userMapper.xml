@@ -3,8 +3,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kht.ecommerce.ecommerce_application.mapper.UserMapper">
 
-    <select id="getAllUsers">
-        SELECT id, firstname, lastname, phone
-        FROM users;
+    <insert id="insertUser">
+        INSERT into  users (email, username, password, firstname, lastname, phone, city, street,street_number, zipcode)
+        VALUES (#{email}, #{username}, #{password}, #{firstname}, #{lastname}, #{phone}, #{city}, #{street}, #{streetNumber}, #{zipcode})
+    </insert>
+
+    <select id="existByEmail">
+        SELECT COUNT(*)
+        FROM users
+        WHERE email = #{email}
     </select>
+
+    <select id="getAllUsers">
+
+        SELECT id, firstname, lastname, phone
+        FROM users /* ; 제거 */
+    </select>
+
+    <select id="getUserById">
+        SELECT id, firstname, lastname, email, phone, address
+        FROM users
+        WHERE id = #{id}
+    </select>
+
 </mapper>
