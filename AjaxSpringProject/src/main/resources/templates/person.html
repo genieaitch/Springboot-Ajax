@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저들</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저들의 정보</h1>
+<div class="person-container" id="persons"></div>
+
+<script>
+    // users 데이터를 가져와서 유저 정보 모두 보기
+    $.ajax({
+        url: `/api/person`,
+        method: 'GET',
+        type: 'json',
+        success: function (personData) {
+            $.each(personData, function (index, user) {
+                const personInfo = `
+                    <div>
+                        <p>유저번호: ${user.id}</p>
+                        <p>이메일 : ${user.email}</p>
+                        <p>아이디 : ${user.username}</p>
+                        <p>비밀번호 : ${user.password}</p>
+                        <p>이름 : ${user.firstname} ${user.lastname}</p>
+                        <p>전화번호 : ${user.phone}</p>
+                        <p>주소 : ${user.city} ${user.street} ${user.streetNumber} ${user.zipcode} ${user.geolocationLat} ${user.geolocationLong}</p>
+                    </div>
+                `;
+                    console.log("유저 번호 가져오기 성공 " + personData)
+                $('#persons').append(personInfo);
+            });
+        },
+        error: function (err) {
+            console.error('에러 발생 : ', err);
+        }
+    });
+</script>
+
+</body>
+</html>

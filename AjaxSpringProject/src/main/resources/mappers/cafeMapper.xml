@@ -6,7 +6,7 @@
         SELECT * FROM cafes
     </select>
 
-    <select id="getCafeInfo" resultType="com.kh.AjaxSpringProject.dto.Cafe">
+    <select id="getCafeInfo">
         SELECT * FROM cafes
         WHERE id = #{id}
     </select>

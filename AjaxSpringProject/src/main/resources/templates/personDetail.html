@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<script>
+    $.ajax({
+        url: `/api/person`,
+        method: 'GET',
+        success:
+            function (data){
+                const persons = `
+            <p>유저번호 : ${data.id}</p>
+            <p>이메일 : ${data.email}</p>
+            <p>아이디 : ${data.username}</p>
+            <p>비밀번호 : ${data.password}</p>
+            <p>이름 : ${data.firstname} ${data.lastname}</p>
+            <p>전화번호 : ${data.phone}</p>
+            <p>주소 : ${data.city} ${data.street} ${data.streetNumber} ${data.zipcode} ${data.geolocationLat} ${data.geolocationLong}</p>
+            `;
+
+                $('#persons').append(persons);
+            }
+    })
+</script>
+</body>
+</html>
