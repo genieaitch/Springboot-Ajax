@@ -5,13 +5,15 @@ import com.kht.ecommerce.ecommerce_application.mapper.CartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired
     CartMapper cartMapper;
 
     @Override
-    public Cart getCartByUserId(int id) {
-        return cartMapper.getCartByUserId(id);
+    public List<Cart> getCartByUserId(int userId) {
+        return cartMapper.getCartByUserId(userId);
     }
 }

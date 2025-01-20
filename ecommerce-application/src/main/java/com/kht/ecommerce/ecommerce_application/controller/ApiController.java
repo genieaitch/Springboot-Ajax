@@ -4,8 +4,11 @@ import com.kht.ecommerce.ecommerce_application.dto.Cart;
 import com.kht.ecommerce.ecommerce_application.dto.Product;
 import com.kht.ecommerce.ecommerce_application.dto.User;
 import com.kht.ecommerce.ecommerce_application.service.*;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,8 +36,19 @@ public class ApiController {
     }
 
     // 특정 사용자의 장바구니 API
+    // http://localhost:8080/api/carts?userId=1
     @GetMapping("/api/carts")
-    public Cart getCart(int id) {
-        return cartService.getCartByUserId(id);
+    public List<Cart> getCart(@RequestParam("userId") int userId) {
+        return cartService.getCartByUserId(userId);
+    }
+
+    /*
+    There was an unexpected error (type=Internal Server Error, status=500).
+    Expected one result (or null) to be returned by selectOne(), but found: 3
+    */
+
+    @GetMapping("/cart{userId}")
+    public String getCartByUserId(@PathVariable("userId") int id) {
+        return "cart";
     }
 }

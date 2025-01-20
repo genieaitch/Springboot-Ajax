@@ -2,6 +2,8 @@ package com.kht.ecommerce.ecommerce_application.service;
 
 import com.kht.ecommerce.ecommerce_application.dto.Cart;
 
+import java.util.List;
+
 public interface CartService {
-    Cart getCartByUserId(int id);
+    List<Cart> getCartByUserId(int userId);
 }
