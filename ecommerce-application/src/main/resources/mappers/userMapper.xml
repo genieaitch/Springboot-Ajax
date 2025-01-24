@@ -35,15 +35,11 @@
     <update id="updateUser">
         UPDATE users
         SET email = #{email},
-            username = #{username},
-            password = #{password},
-            firstname = #{firstname},
-            lastname = #{lastname},
             phone = #{phone},
             city = #{city},
             street = #{street},
             street_number = #{streetNumber},
             zipcode = #{zipcode}
-        where id = #{id}
+        WHERE id = #{id}
     </update>
 </mapper>

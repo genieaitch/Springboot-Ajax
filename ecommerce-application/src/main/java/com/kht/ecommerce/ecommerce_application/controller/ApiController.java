@@ -103,6 +103,7 @@ public class ApiController {
     @PutMapping("/api/user/edit/{id}")
     public void updateUser(@PathVariable int id, @RequestBody User user) {
         user.setId(id);
-        userService.getByUserId(id);
+        userService.updateUser(user);
     }
+
 }
