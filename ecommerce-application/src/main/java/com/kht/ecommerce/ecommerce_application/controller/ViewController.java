@@ -74,4 +74,9 @@ public class ViewController {
         return "user-edit";
     }
 
+    /* ************************BOOK Controller**************************** */
+    @GetMapping("/books")
+    public String booksPage() {
+        return "bookList";
+    }
 }

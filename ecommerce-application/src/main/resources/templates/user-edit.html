@@ -73,20 +73,19 @@
         //api url 주소 = /api/user/edit
         $.ajax({
             url: `/api/user/edit/${id}`,
-            method: "PUT",
-            contentType: "application/json",
+            method: "PUT", //POST 과 PUT content-type data 필수!
+            contentType: "application/json", // 글자형식만 젅송
             data: JSON.stringify({
-                email: $("#email").val(),
-                phone: $("#phone").val(),
-                city: $("#city").val(),
-                street: $("#street").val(),
-                streetNumber: $("#streetNumber").val(),
-                zipcode: $("#zipcode").val()
+                email: $("#email").val(), //input에 있는 값을 가져와서 email 이라는 이름으로 사용자가 작성한 값을 전달
+                phone: $("#phone").val(), //input에 있는 값을 가져와서 phone 이라는 이름으로 사용자가 작성한 값을 전달
+                city: $("#city").val(), //input에 있는 값을 가져와서 city 이라는 이름으로 사용자가 작성한 값을 전달
+                street: $("#street").val(), //input에 있는 값을 가져와서 street 이라는 이름으로 사용자가 작성한 값을 전달
+                streetNumber: $("#streetNumber").val(), //input에 있는 값을 가져와서 streetNumber 이라는 이름으로 사용자가 작성한 값을 전달
+                zipcode: $("#zipcode").val() //input에 있는 값을 가져와서 zipcode 이라는 이름으로 사용자가 작성한 값을 전달
             }),
-            success:
-            function(){
-                alert("유저 정보 수정 성공!")
-                window.location.href = "/";
+            success: function(){ //contentType으로 data 전송 성공했음을 나타냄
+                alert("유저 정보 수정하였습니다.")
+                window.location.href = `/user?id=${id}`;
             },
             error: function (){
                 alert("데이터를 수정할 수 없습니다. 다시 시도해 주세요.");

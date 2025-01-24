@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 목록 페이지</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>책 목록</h1>
+<table class="books-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이미지</th>
+        <th>제목</th>
+        <th>장르</th>
+        <th>이미지</th>
+        <th>이동</th>
+    </tr>
+    </thead>
+    <tbody id="bookList"></tbody>
+</table>
+<script>
+    $.ajax({
+        url: `/api/books`,
+        method: "GET",
+        data: "JSON",
+        success: function (data) {
+            $.each(data, function (index, value) {
+                $("#bookList").append(`
+                <tr>
+                <th>${value.id}</th>
+                <th>${value.title}</th>
+                <th>${value.author}</th>
+                <th>${value.genre}</th>
+                <th></th><img src="${value.imagePath}" alt="imagePath">
+                <th><a href="books?id=${id}">이동</a></th>
+                </tr>
+                `)
+            })
+        },
+        error: function (){
+            $("#bookList").html(`<P>백엔드에서 데이터를 가져오지 못했습니다.</P>`)
+        }
+    })
+</script>
+</body>
+</html>

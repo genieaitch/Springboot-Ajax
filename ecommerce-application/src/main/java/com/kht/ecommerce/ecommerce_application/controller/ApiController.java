@@ -1,8 +1,10 @@
 package com.kht.ecommerce.ecommerce_application.controller;
 
+import com.kht.ecommerce.ecommerce_application.dto.Book;
 import com.kht.ecommerce.ecommerce_application.dto.Cart;
 import com.kht.ecommerce.ecommerce_application.dto.Product;
 import com.kht.ecommerce.ecommerce_application.dto.User;
+import com.kht.ecommerce.ecommerce_application.service.BookService;
 import com.kht.ecommerce.ecommerce_application.service.CartServiceImpl;
 import com.kht.ecommerce.ecommerce_application.service.ProductServiceImpl;
 import com.kht.ecommerce.ecommerce_application.service.UserServiceImpl;
@@ -80,6 +82,7 @@ public class ApiController {
         return userService.existByEmail(email); // 결과를 html true false로 전달
     }
 
+    // 사용자 저장 insert 1개일 경우나 갯수 상관이 없다면 void 사용 , 갯수가 중요하다면 int로 몇 개 넣었는지 반환
     @PostMapping("/api/products/insert")
     public void addProduct(@RequestBody Product product) {
         log.info("add product: {}", product);
@@ -100,10 +103,22 @@ public class ApiController {
     }
 
     //사용자 수정하기
-    @PutMapping("/api/user/edit/{id}")
-    public void updateUser(@PathVariable int id, @RequestBody User user) {
-        user.setId(id);
-        userService.updateUser(user);
+    @PutMapping("/api/user/edit/{id}") // PathVariable = 특정사용자 데이터를 주고받는 장소  @Request = 데이터를 통째로 전달받거나, 일부분만 전달받아서 사용하거나 전달
+    public int updateUser(@PathVariable int id, @RequestBody User user) {
+        System.out.println("update user: " + user.toString());
+        user.setId(id); //수정하기 주소에 존재하는 유저 아이디를 가져와서 User DTO에 넣어주고, mapper.xml where id에서
+        System.out.println("update user: " + user);
+        return userService.updateUser(user);
+    }
+
+    /* ************************BOOK Controller**************************** */
+    @Autowired
+    BookService bookService;
+
+    // 책 리스트 조회
+    @GetMapping("/api/books")
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
 }
