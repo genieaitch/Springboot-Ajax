@@ -22,5 +22,5 @@ public interface UserMapper {
     User getByUserId(int id);
 
     //사용자 수정하기
-    User updateUser(User user);
+    void updateUser(User user);
 }

@@ -101,8 +101,8 @@ public class ApiController {
 
     //사용자 수정하기
     @PutMapping("/api/user/edit/{id}")
-    public User updateUser(@PathVariable int id, @RequestBody User user) {
+    public void updateUser(@PathVariable int id, @RequestBody User user) {
         user.setId(id);
-        return userService.getByUserId(id);
+        userService.getByUserId(id);
     }
 }

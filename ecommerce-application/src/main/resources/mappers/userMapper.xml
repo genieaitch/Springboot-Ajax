@@ -43,7 +43,7 @@
             city = #{city},
             street = #{street},
             street_number = #{streetNumber},
-            ]zipcode = #{zipcode}
+            zipcode = #{zipcode}
         where id = #{id}
     </update>
 </mapper>
