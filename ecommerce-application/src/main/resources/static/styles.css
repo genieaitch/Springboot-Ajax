@@ -110,3 +110,14 @@ button:hover {
         padding: 10px;
     }
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
+}
+
+label {
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    width: 100%; /* 레이블의 전체 너비를 확보 */
+}

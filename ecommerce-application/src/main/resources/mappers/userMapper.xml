@@ -21,9 +21,29 @@
     </select>
 
     <select id="getUserById">
-        SELECT id, firstname, lastname, email, phone, address
+        SELECT *
         FROM users
         WHERE id = #{id}
     </select>
 
+    <select id="getByUserId">
+        SELECT *
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateUser">
+        UPDATE users
+        SET email = #{email},
+            username = #{username},
+            password = #{password},
+            firstname = #{firstname},
+            lastname = #{lastname},
+            phone = #{phone},
+            city = #{city},
+            street = #{street},
+            street_number = #{streetNumber},
+            ]zipcode = #{zipcode}
+        where id = #{id}
+    </update>
 </mapper>

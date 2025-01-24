@@ -8,8 +8,8 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
     List<Product> getAllProducts();
-    void addProduct();
 
-    // 상품 상세보기
-    Product getProductById(int id);
+    Product findById(int id);
+    void addProduct();
+    void updateProduct(Product product);
 }

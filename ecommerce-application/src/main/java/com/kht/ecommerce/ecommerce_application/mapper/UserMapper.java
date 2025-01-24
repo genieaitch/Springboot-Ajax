@@ -18,4 +18,9 @@ public interface UserMapper {
 
     //사용자 상세보기
     List<User> getUserById(String id);
+
+    User getByUserId(int id);
+
+    //사용자 수정하기
+    User updateUser(User user);
 }

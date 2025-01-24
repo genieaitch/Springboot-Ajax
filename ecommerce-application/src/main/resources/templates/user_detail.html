@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자 상세보기</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저 상세 정보</h1>
+<div id="user-detail-container"></div>
+<script>
+  $(document).ready(function () {
+    // URL에서 userId 추출
+
+    // 사용자 상세 정보 가져오기
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    $.ajax({
+      url: `/api/user/${id}`, // 사용자 상세 정보 API
+      method: 'GET',
+      success: function (data) {
+        $('#user-detail-container').append(`
+            <p>이름 : ${data.lastname}${data.firstname}</p>
+            <p>영문이름 : ${data.username}</p>
+            <p>이메일 : ${data.email}</p>
+            <p>전화번호 : ${data.phone}</p>
+            <p>주소 : ${data.zipcode} ${data.city} ${data.street} ${data.streetNumber}</p>
+            <!-- /user/edit?id="$ {data.id}   =>  viewController 에서 edit.html 템플릿과 연결하는 url -->
+            <a href="/user/edit?id=${data.id}">정보 수정하기</a>
+            `);
+      },
+      error: function () {
+        $('#user-detail-container').append('<p>사용자 정보를 가져올 수 없습니다.</p>');
+      }
+    });
+  });
+
+</script>
+</body>
+</html>

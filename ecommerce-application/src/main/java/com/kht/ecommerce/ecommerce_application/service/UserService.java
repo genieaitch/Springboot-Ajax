@@ -1,9 +1,11 @@
 package com.kht.ecommerce.ecommerce_application.service;
 
 import com.kht.ecommerce.ecommerce_application.dto.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface UserService {
     List<User> getAllUsers();
 
@@ -15,4 +17,8 @@ public interface UserService {
 
     //사용자 상세보기
     List<User> getUserById(String id);
+
+    User getByUserId(int id);
+
+    User updateUser(User user);
 }
